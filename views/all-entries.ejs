@@ -1,22 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Public Entries</title>
 </head>
+
 <body>
     <%- include('./partials/navbar') %>
 
     <h1>All Public Entries</h1>
 
-    <ul>
-        <% for (let entry of entries) { %>
-            <li>
-                <h2><%= entry.title %></h2>
-                <p><%= entry.entryBody %></p>
-            </li>
+    <% for (let entry of entries) { %>
+        <h2><%= entry.title %></h2>
+        <p><%= entry.entryBody %></p>
+
+        <% if (user && entry.owner.equals(user._id)) { %>
+            <form action="/entries/<%= entry._id %>?_method=DELETE" method="POST">
+                <button>Delete Entry</button>
+            </form>
+
+            <a href="/entries/<%= entry._id %>/edit">Edit Entry</a>
         <% } %>
-    </ul>
+    <% } %>
+
 </body>
+
 </html>

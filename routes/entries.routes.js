@@ -25,4 +25,10 @@ router.get('/', async (req, res) => {
     res.render('all-entries.ejs', { entries: foundEntries });
 });
 
+// Part 6 - My Entries
+router.get('/my-entries', isSignedIn, async (req, res) => {
+    const userEntries = await Entry.find({ owner: req.session.user._id });
+    res.render('my-entries.ejs', { entries: userEntries });
+});
+
 module.exports = router;
